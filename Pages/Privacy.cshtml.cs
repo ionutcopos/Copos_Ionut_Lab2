@@ -16,5 +16,4 @@ namespace Copos_Ionut_Lab2.Pages
         {
         }
     }
-
 }
