@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Copos_Ionut_Lab2.Data;
 using Copos_Ionut_Lab2.Models;
 
-namespace Copos_Ionut_Lab2.Pages.Publishers
+namespace Copos_Ionut_Lab2.Pages.Authors
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,13 @@ namespace Copos_Ionut_Lab2.Pages.Publishers
             _context = context;
         }
 
-        public IList<Publisher> Publisher { get;set; } = default!;
+        public IList<Author> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Publisher != null)
+            if (_context.Author != null)
             {
-                Publisher = await _context.Publisher.ToListAsync();
+                Author = await _context.Author.ToListAsync();
             }
         }
     }

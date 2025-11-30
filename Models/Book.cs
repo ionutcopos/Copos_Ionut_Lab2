@@ -1,18 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Migrations;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Policy;
+using System.Xml.Linq;
 
-public class Book
+namespace Copos_Ionut_Lab2.Models
 {
-    public int ID { get; set; }
-    [Display(Name = "Book Title")]
-    public string Title { get; set; }
-    public string Author { get; set; }
-    [Column(TypeName = "decimal(6, 2)")]
-    public decimal Price { get; set; }
+    public class Book
+    {
+		public int ID { get; set; }
+		[Display(Name = "Book Title")]
+		public string Title { get; set; }
+		public int? AuthorID { get; set; }
+		public Author? Author { get; set; } // navigation property
+		[Column(TypeName = "decimal(6, 2)")]
+		public decimal Price { get; set; }
 
-    public DateTime PublishingDate { get; set; }
+		[Display(Name = "Publishing Date")]
+		public DateTime PublishingDate { get; set; }
 
-    public int? PublisherID { get; set; }
-    public Publisher? Publisher { get; set; }
+		public int? PublisherID { get; set; }
+		public Publisher? Publisher { get; set; } //navigation property
+
+        public ICollection<BookCategory>? BookCategories { get; set; }
+    }
 }
