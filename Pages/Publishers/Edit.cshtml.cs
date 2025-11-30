@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Copos_Ionut_Lab2.Data;
+using Copos_Ionut_Lab2.Models;
 
 namespace Copos_Ionut_Lab2.Pages.Publishers
 {
@@ -24,7 +25,7 @@ namespace Copos_Ionut_Lab2.Pages.Publishers
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Publisher == null)
             {
                 return NotFound();
             }
@@ -39,7 +40,7 @@ namespace Copos_Ionut_Lab2.Pages.Publishers
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -70,7 +71,7 @@ namespace Copos_Ionut_Lab2.Pages.Publishers
 
         private bool PublisherExists(int id)
         {
-            return _context.Publisher.Any(e => e.ID == id);
+          return (_context.Publisher?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

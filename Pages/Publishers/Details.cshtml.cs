@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Copos_Ionut_Lab2.Data;
+using Copos_Ionut_Lab2.Models;
 
 namespace Copos_Ionut_Lab2.Pages.Publishers
 {
@@ -18,11 +19,11 @@ namespace Copos_Ionut_Lab2.Pages.Publishers
             _context = context;
         }
 
-        public Publisher Publisher { get; set; } = default!;
+      public Publisher Publisher { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Publisher == null)
             {
                 return NotFound();
             }
@@ -32,7 +33,7 @@ namespace Copos_Ionut_Lab2.Pages.Publishers
             {
                 return NotFound();
             }
-            else
+            else 
             {
                 Publisher = publisher;
             }

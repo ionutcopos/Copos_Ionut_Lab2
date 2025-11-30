@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Copos_Ionut_Lab2.Data;
+using Copos_Ionut_Lab2.Models;
 
 namespace Copos_Ionut_Lab2.Pages.Books
 {
@@ -19,22 +20,25 @@ namespace Copos_Ionut_Lab2.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+      public Book Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Book == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+            var book = await _context.Book
+                .Include(b => b.Author)
+                .Include(b => b.Publisher)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (book == null)
             {
                 return NotFound();
             }
-            else
+            else 
             {
                 Book = book;
             }
@@ -43,12 +47,12 @@ namespace Copos_Ionut_Lab2.Pages.Books
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null)
+            if (id == null || _context.Book == null)
             {
                 return NotFound();
             }
-
             var book = await _context.Book.FindAsync(id);
+
             if (book != null)
             {
                 Book = book;
